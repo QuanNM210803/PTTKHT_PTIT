@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+         http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+
+    <!-- Cấu hình Filter -->
+    <filter>
+        <filter-name>AuthFilter</filter-name>
+        <filter-class>config.AuthFilter</filter-class> 
+    </filter>
+
+    <!-- Filter Mapping -->
+    <filter-mapping>
+        <filter-name>AuthFilter</filter-name>
+        <url-pattern>/quanly/*</url-pattern> 
+    </filter-mapping>
+    
+	<filter-mapping>
+	    <filter-name>AuthFilter</filter-name>
+	    <url-pattern>/nhanvienbanve/*</url-pattern>
+	</filter-mapping>
+
+
+	<error-page>
+	    <error-code>403</error-code>
+	    <location>/ErrorPage.jsp</location>
+	</error-page>
+	
+</web-app>
