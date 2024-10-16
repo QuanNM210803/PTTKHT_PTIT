@@ -159,6 +159,6 @@
             	}
         	%>
     </table>
-    </table>
+
 </body>
 </html>

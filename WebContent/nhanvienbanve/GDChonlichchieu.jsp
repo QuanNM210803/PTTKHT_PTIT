@@ -1,4 +1,6 @@
-
+<%@page import="model.Lichchieuphim"%>
+<%@page import="dao.LichchieuphimDAO"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="model.Phim"%>
 <%@page import="java.util.List"%>
 <%@page import="dao.PhimDAO"%>
@@ -6,22 +8,33 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="jakarta.servlet.http.HttpSession" %>
-<% 
-	PhimDAO phimDAO=new PhimDAO();
-	List<Phim> dsphimbanve = phimDAO.getDSPhimbanve();
-	HttpSession httpSession=request.getSession();
-	httpSession.setAttribute("dsphimbanve", dsphimbanve);
+
+<%
+	int phimid=Integer.parseInt(request.getParameter("phimid"));
+	HttpSession httpSession = request.getSession(false);
+	List<Phim> dsphimbanve= httpSession.getAttribute("dsphimbanve")!=null ? (List<Phim>) httpSession.getAttribute("dsphimbanve") : new ArrayList<>();
+	String tenphim="";
+	for (Phim phim : dsphimbanve) {
+	    if (phim.getId() == phimid) {
+	        tenphim = phim.getTenphim();
+	        break;
+	    }
+	}
+	LichchieuphimDAO lichchieuphimDAO=new LichchieuphimDAO();
+	List<Lichchieuphim> dslichchieuphim = lichchieuphimDAO.getDSLichchieuphim(phimid);
+	httpSession.setAttribute("dslichchieuphim", dslichchieuphim);
+	
 %>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Bán vé tại quầy cho khách</title>
+    <title>Chọn lịch chiếu phim</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0; /* Màu nền chính */
+            background-color: #f0f0f0;
             background-image: radial-gradient(circle, rgba(255, 255, 255, 0.2) 20%, transparent 20%), radial-gradient(circle, rgba(255, 255, 255, 0.2) 20%, transparent 20%);
-            background-size: 50px 50px; /* Kích thước họa tiết */
+            background-size: 50px 50px;
             margin: 0;
             padding: 0;
         }
@@ -37,9 +50,9 @@
         }
         .header .user-info {
             position: absolute;
-            top: 50%; /* Đặt phần tử ở giữa theo chiều dọc */
+            top: 50%;
             right: 20px;
-            transform: translateY(-50%); /* Căn giữa theo chiều dọc bằng cách dịch chuyển phần tử */
+            transform: translateY(-50%);
             cursor: pointer;
         }
         .header .user-info .dropdown {
@@ -66,11 +79,25 @@
         .header .user-info .dropdown a:hover {
             background-color: #f0f0f0;
         }
-        table {
-            width: 80%;
+        .container {
             margin: 20px auto;
-            border-collapse: collapse;
+            width: 50%;
             background-color: white;
+            padding: 20px;
+            border: 1px solid #ddd;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+        }
+        p {
+            text-align: left;
+            padding-left: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
         }
         th, td {
             border: 1px solid #ddd;
@@ -81,17 +108,9 @@
             background-color: #ff9800;
             color: white;
         }
-		tr:hover{
-			background-color: #f1f1f1;
-			cursor: pointer;
-		}
-
-        h1 {
-            text-align: center;
-            margin: 20px 0;
-            padding: 10px;
-            border-radius: 5px;
-            font-size: 24px;
+        tr:hover {
+            background-color: #f1f1f1;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -115,38 +134,28 @@
             </div>
         </div>
     </div>
-    
-    <h1>Chọn phim</h1>
 
-    <table>
-        <tr>
-            <th>TT</th>
-            <th>Tên phim</th>
-            <th>Đạo diễn</th>
-            <th>Diễn viên chính</th>
-            <th>Thời lượng</th>
-            <th>Thể loại</th>
-        </tr>
-        	<%
-        		
-	            int index = 1;
-	            if (dsphimbanve != null) {
-	                for (Phim phim : dsphimbanve) {
-        				%>
-		                    <tr onclick="location.href='/pttkht/nhanvienbanve/GDChonlichchieu.jsp?phimid=<%= phim.getId() %>'">
-		                        <td><%= index++ %></td>
-		                        <td><%= phim.getTenphim() %></td>
-		                        <td><%= phim.getDaodien() %></td>
-		                        <td><%= phim.getDienvienchinh() %></td>
-		                        <td><%= phim.getThoiluong() %></td>
-		                        <td><%= phim.getTheloai().getTentheloai() %></td>
-		                    </tr>
-	        			<%
-	                }
-            	}
-        	%>
-    </table>
-
+    <div class="container">
+        <h2>Chọn lịch chiếu</h2>
+        <p><strong>Phim:</strong> <%= tenphim %></p>
+        <table>
+            <tr>
+                <th>TT</th>
+                <th>Thời điểm chiếu</th>
+            </tr>
+            <% 
+                int tt = 1;
+                for (Lichchieuphim lichchieuphim : dslichchieuphim) {
+            %>
+	                <tr onclick="location.href='/pttkht/nhanvienbanve/GDChonghengoi.jsp?lichchieuphimid=<%= lichchieuphim.getId() %>'">
+	                    <td><%= tt++ %></td>
+	                    <td><%= lichchieuphim.getNgaychieu() + " " + lichchieuphim.getGiochieu().getThoigianchieu() %></td>
+	                </tr>
+            <% 
+                } 
+            %>
+            <!-- Kết thúc vòng lặp -->
+        </table>
+    </div>
 </body>
 </html>
-

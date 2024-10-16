@@ -198,7 +198,7 @@
 
             <label for="theloai">Thể Loại:</label>
             <select id="theloai" name="theloaiid" required>
-                <option value="">Chọn Thể Loại</option>
+                <option value="">-- Chọn Thể Loại --</option>
                 <%
                     // Lấy danh sách thể loại từ cơ sở dữ liệu
                     TheloaiDAO theloaiDAO = new TheloaiDAO();

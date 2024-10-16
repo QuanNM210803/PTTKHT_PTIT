@@ -20,6 +20,14 @@ public class Phim {
 		this.thoiluong = thoiluong;
 		this.theloai=theloai;
 	}
+	public Phim(int id, String tenphim, String daodien, String dienvienchinh, int thoiluong) {
+		super();
+		this.id = id;
+		this.tenphim = tenphim;
+		this.daodien = daodien;
+		this.dienvienchinh = dienvienchinh;
+		this.thoiluong = thoiluong;
+	}
 	public int getId() {
 		return id;
 	}

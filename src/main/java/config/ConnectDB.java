@@ -3,7 +3,6 @@ package config;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-import jakarta.servlet.http.HttpServlet;
 
 public class ConnectDB{
 	public static Connection con;

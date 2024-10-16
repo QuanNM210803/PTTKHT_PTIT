@@ -114,7 +114,7 @@
     <div class="container">
         <div class="card">
             <h3>Bán vé cho khách hàng</h3>
-            <a href="/pttkht/nhanvienbanve/GDChonphim.jsp">Quản Lý</a>
+            <a href="/pttkht/nhanvienbanve/GDChonphim.jsp">Bán vé</a>
         </div>
     </div>
 </body>

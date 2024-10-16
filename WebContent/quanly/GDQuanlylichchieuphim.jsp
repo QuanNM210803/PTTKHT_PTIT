@@ -1,3 +1,4 @@
+
 <%@page import="model.Thanhvien"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -5,15 +6,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Quản Lý Rạp Chiếu Phim</title>
+    <title>Quản Lý Lịch Chiếu Phim</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-		    background-color: #f0f0f0; /* Màu nền chính */
-		    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.2) 20%, transparent 20%), radial-gradient(circle, rgba(255, 255, 255, 0.2) 20%, transparent 20%);
-		    background-size: 50px 50px; /* Kích thước họa tiết */
-		    margin: 0;
-		    padding: 0;
+            background-color: #f0f0f0; /* Màu nền chính */
+            background-image: radial-gradient(circle, rgba(255, 255, 255, 0.2) 20%, transparent 20%), radial-gradient(circle, rgba(255, 255, 255, 0.2) 20%, transparent 20%);
+            background-size: 50px 50px; /* Kích thước họa tiết */
+            margin: 0;
+            padding: 0;
         }
         .header {
             background-color: #ff9800;
@@ -26,12 +27,12 @@
             justify-content: center;
         }
         .header .user-info {
-		    position: absolute;
-		    top: 50%; /* Đặt phần tử ở giữa theo chiều dọc */
-		    right: 20px;
-		    transform: translateY(-50%); /* Căn giữa theo chiều dọc bằng cách dịch chuyển phần tử */
-		    cursor: pointer;
-		}
+            position: absolute;
+            top: 50%; /* Đặt phần tử ở giữa theo chiều dọc */
+            right: 20px;
+            transform: translateY(-50%); /* Căn giữa theo chiều dọc bằng cách dịch chuyển phần tử */
+            cursor: pointer;
+        }
 
         .header .user-info .dropdown {
             display: none;
@@ -57,6 +58,7 @@
         .header .user-info .dropdown a:hover {
             background-color: #f0f0f0;
         }
+        
         .container {
             display: flex;
             justify-content: center;
@@ -114,15 +116,18 @@
     
     <div class="container">
         <div class="card">
-            <h3>Quản Lý Thông Tin Phim</h3>
-            <a href="/pttkht/quanly/GDQuanlythongtinphim.jsp">Quản Lý</a>
+            <h3>Lên Lịch Chiếu Phim</h3>
+            <a href="/pttkht/quanly/GDLenlichchieuphim.jsp">Lên lịch chiếu</a>
         </div>
         <div class="card">
-            <h3>Quản lý lịch chiếu phim</h3>
-            <a href="/pttkht/quanly/GDQuanlylichchieuphim.jsp">Quản lý</a>
+            <h3>Xem Lịch Chiếu Theo Phim</h3>
+            <a href="/pttkht/quanly/GDQuanlylichchieuphim.jsp">Xem chi tiết</a>
+        </div>
+        <div class="card">
+            <h3>Xem Lịch Chiếu Theo Phòng</h3>
+            <a href="/pttkht/quanly/GDQuanlylichchieuphim.jsp">Xem chi tiết</a>
         </div>
     </div>
 </body>
 </html>
-
 

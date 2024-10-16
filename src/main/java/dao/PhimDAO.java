@@ -2,9 +2,13 @@ package dao;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -93,6 +97,43 @@ public class PhimDAO extends HttpServlet{
 
             while (rs.next()) {
                 Phim phim = new Phim();
+                phim.setId(rs.getInt("id"));
+                phim.setTenphim(rs.getString("tenphim"));
+                phim.setDaodien(rs.getString("daodien"));
+                phim.setDienvienchinh(rs.getString("dienvienchinh"));
+                phim.setThoiluong(rs.getInt("thoiluong"));
+                phim.setTheloai(new Theloai(rs.getInt("id"), rs.getString("tentheloai"), rs.getString("mota")));
+                DSPhim.add(phim);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return DSPhim;
+	}
+	
+	public List<Phim> getDSPhimbanve(){
+		List<Phim> DSPhim = new ArrayList<Phim>();
+		Connection con = ConnectDB.getConnection();
+		
+		PreparedStatement ps = null;
+	    ResultSet rs = null;
+
+        try {
+
+            String sql = "SELECT p.*, t.* FROM tbl_phim p\r\n"
+            		+ "JOIN tbl_theloai t ON p.theloaiid = t.id\r\n"
+            		+ "JOIN tbl_lichchieuphim lcp ON p.id=lcp.phimid\r\n"
+            		+ "JOIN tbl_giochieu gc ON gc.id=lcp.giochieuid\r\n"
+            		+ "WHERE (lcp.ngaychieu > ?) OR (lcp.ngaychieu=? AND gc.thoigianchieu > ?)";
+            ps = con.prepareStatement(sql);
+            ps.setDate(1, Date.valueOf(LocalDate.now()));
+            ps.setDate(2, Date.valueOf(LocalDate.now()));
+            ps.setTime(3, Time.valueOf(LocalTime.now()));
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Phim phim = new Phim();
+                phim.setId(rs.getInt("id"));
                 phim.setTenphim(rs.getString("tenphim"));
                 phim.setDaodien(rs.getString("daodien"));
                 phim.setDienvienchinh(rs.getString("dienvienchinh"));
